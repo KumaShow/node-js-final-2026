@@ -1,0 +1,48 @@
+erDiagram
+    %% 定義使用者資料表
+    users {
+        uuid id PK "預設 gen_random_uuid()"
+        varchar_320 email UK "email 不重複"
+        varchar_50 name "使用者名稱"
+        varchar_60 password_hash
+        varchar_20 role "如：member, admin"
+        timestamp_with_time_zone created_at
+        timestamp_with_time_zone updated_at
+    }
+
+    %% 定義教練資料表
+    coaches {
+        uuid id PK "預設 gen_random_uuid()"
+        uuid user_id FK "關聯到 users.id"
+        uuid skill_id FK "關聯到 skills.id"
+        integer experience_years "教練經驗年數"
+        text description "教練簡介"
+        timestamp_with_time_zone created_at
+        timestamp_with_time_zone updated_at
+    }
+
+    %% 技能資料表
+    skills {
+        uuid id PK "預設 gen_random_uuid()"
+        varchar_100 name UK "技能名稱不重複"
+        timestamp_with_time_zone created_at
+        timestamp_with_time_zone updated_at
+    }
+
+    %% 課程清單資料表
+    courses {
+        uuid id PK "預設 gen_random_uuid()"
+        uuid skill_id FK "關聯到 skills.id"
+        varchar_100 name "課程名稱"
+        text description "課程描述"
+        integer max_participants "課程最大參與人數"
+        varchar_50 meeting_url "課程連結(開頭必須為 https)"
+        timestamp_with_time_zone start_at
+        timestamp_with_time_zone end_at
+        timestamp_with_time_zone created_at
+        timestamp_with_time_zone updated_at
+    }
+
+    %% 定義兩者之間的關係 (一對多)
+    %% 一個使用者(||)可以發表零到多篇(o{)文章
+    %% users ||--o{ coaches : "employs"

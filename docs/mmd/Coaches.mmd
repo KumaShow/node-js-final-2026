@@ -1,0 +1,12 @@
+erDiagram
+
+    %% 定義教練資料表
+    coaches {
+        integer id PK "SERIAL 遞增"
+        uuid user_id FK "關聯到 users.id"
+        uuid skill_id FK "關聯到 skills.id"
+        integer experience_years "教練經驗年數"
+        text description "教練簡介"
+        timestamp_with_time_zone created_at
+        timestamp_with_time_zone updated_at
+    }

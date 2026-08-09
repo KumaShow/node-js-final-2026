@@ -1,0 +1,11 @@
+erDiagram
+    %% 定義使用者資料表
+    users {
+        uuid id PK "預設 gen_random_uuid()"
+        varchar_320 email UK "email 不重複"
+        varchar_50 name "使用者名稱"
+        varchar_60 password_hash
+        varchar_20 role "如：member, admin"
+        timestamp_with_time_zone created_at
+        timestamp_with_time_zone updated_at
+    }
