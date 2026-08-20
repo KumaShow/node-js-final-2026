@@ -1,15 +1,20 @@
 import cors from 'cors';
 import express from 'express';
+import routes from './routes/index.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-
 app.get('/healthcheck', (req, res) => {
-  res.status(200).send('OK')
-})
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.use('/api', routes);
 
 app.use((req, res) => {
   res.status(400).json({ status: 'error', message: '路由不存在' });
