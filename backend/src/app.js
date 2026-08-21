@@ -17,12 +17,12 @@ app.get('/healthcheck', (req, res) => {
 app.use('/api', routes);
 
 app.use((req, res) => {
-  res.status(400).json({ status: 'error', message: '路由不存在' });
+  res.status(404).json({ status: 'error', message: '路由不存在' });
 });
 app.use((err, req, res, next) => {
   res
-    .status(500)
-    .json({ status: 'error', err: err.name, message: err.message });
+    .status(err.statusCode || 500)
+    .json({ status: 'failed', message: err.message });
 });
 
 export default app;
